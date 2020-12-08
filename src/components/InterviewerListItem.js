@@ -33,7 +33,7 @@ export default function InterviewListItem(props) {
   });
 
   const selectInterviewer = () => {
-    props.setInterviewer(props.name);
+    props.setInterviewer(props.id);
     setSelected(true);
   }
 
