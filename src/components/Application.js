@@ -37,10 +37,12 @@ export default function Application(props) {
     });
   }, []);
 
-  // Create list of Appointment components
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
-  // Create array of interviewers for Appointment props
-  const interviewers = getInterviewersForDay(state, state.day);
+  const dailyAppointments = getAppointmentsForDay(state, state.day);   // Create list of Appointment components
+  const interviewers = getInterviewersForDay(state, state.day);   // Create array of interviewers for Appointment props
+  
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+  }
 
   const appointmentsList = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
@@ -51,6 +53,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     );
   });
