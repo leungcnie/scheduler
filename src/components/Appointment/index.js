@@ -39,7 +39,7 @@ export default function Appointment(props) {
       .catch(() => transition(ERROR_SAVE, true));
   }
 
-  function deleting() {
+  function destroy() {
     const interview = null;
 
     transition(DELETING, true);
@@ -83,7 +83,7 @@ export default function Appointment(props) {
       {mode === CONFIRM && (
         <Confirm
           message="Are you sure you would like to delete?"
-          onConfirm={deleting}
+          onConfirm={destroy}
           onCancel={() => back()}
         />
       )}
