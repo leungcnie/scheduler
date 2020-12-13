@@ -11,24 +11,23 @@ export default function useApplicationData() {
 
   const setDay = (day) => setState({ ...state, day });
 
-  // Return new days array to show remaining spots
-  const newDays = (status) => {
-    const dayObj = state.days.find((day) => day.name === state.day);
-    const dayIndex = state.days.indexOf(dayObj);
+  // Return new days array with updated spots
+  const updateSpots = (dayName, days, appointments) => {
+    const index = days.findIndex(d => d.name === dayName); // Get index of current day
+    const apptIDs = days[index].appointments; // Get array of appointment IDs
+    let freeSpots = 0;
 
-    console.log("dayIndex", dayIndex)
-    
-    const days = [...state.days]
-    if (status === "add") {
-      days[dayIndex].spots--;
-    } else if (status === "delete"){
-      days[dayIndex].spots++;
+    // Loop through appointments, and if the interview value is null, add a free spot
+    for (const id of apptIDs) {
+      if (appointments[id].interview === null) {
+        freeSpots++;
+      }
     }
-    
-    console.log("DAYS", days);
-    
+    // Assign the new spots value to the day
+    days[index].spots = freeSpots;
+
     return days;
-  };
+  }
 
   // Fetch days data from scheduler-api
   useEffect(() => {
@@ -58,7 +57,7 @@ export default function useApplicationData() {
       [id]: appointment,
     };
 
-    const days = newDays("add");
+    const days = updateSpots(state.day, [...state.days], appointments);
 
     return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
       setState({
@@ -73,7 +72,7 @@ export default function useApplicationData() {
   function cancelInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview },
+      interview,
     };
 
     const appointments = {
@@ -81,7 +80,7 @@ export default function useApplicationData() {
       [id]: appointment,
     };
 
-    const days = newDays("delete");
+    const days = updateSpots(state.day, [...state.days], appointments);
 
     return axios.delete(`/api/appointments/${id}`, { interview }).then(() => {
       setState({
