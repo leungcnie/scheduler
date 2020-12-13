@@ -45,7 +45,7 @@ export default function useApplicationData() {
     });
   }, []);
 
-  // Saving an interview
+  // Saving or editing an interview
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
