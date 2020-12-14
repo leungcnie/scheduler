@@ -41,6 +41,19 @@ describe("Form", () => {
     expect(onSave).not.toHaveBeenCalled();
   });
 
+  // Additional test to ensure interviewer must be selected to submit form
+  it("validates that interviewer must be selected", () => {
+    const onSave = jest.fn();
+    const { getByText } = render(
+      <Form interviewers={interviewers} onSave={onSave} name="Lydia Miller-Jones" />
+    );
+
+    fireEvent.click(getByText("Save"));
+
+    expect(getByText(/an interviewer must be selected/i)).toBeInTheDocument();
+    expect(onSave).not.toHaveBeenCalled();
+  });
+
   it("can successfully save after trying to submit an empty student name", () => {
     const onSave = jest.fn();
     const { getByText, getByPlaceholderText, queryByText } = render(
