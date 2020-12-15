@@ -10,6 +10,7 @@ import {
   getAllByTestId,
   getByAltText,
   getByPlaceholderText,
+  queryByText,
 } from "@testing-library/react";
 
 import Application from "components/Application";
@@ -33,20 +34,25 @@ describe("Application", () => {
     await waitForElement(() => getByText(container, "Archie Cohen"));
   
     const appointments = getAllByTestId(container, "appointment");
-    const appointment = appointments[0]; // Get the first appointment
+    const appointment = appointments[0]; // Get first appointment
   
     fireEvent.click(getByAltText(appointment, "Add"));
   
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
       target: { value: "Lydia Miller-Jones" }
     });
-
-    fireEvent.click(getByAltText(appointment, "Sylvia Palmer")); // Select an interviewer
   
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer")); // Select interviewer
     fireEvent.click(getByText(appointment, "Save"));
-
+  
     expect(getByText(appointment, "Saving")).toBeInTheDocument(); // STATUS component
-
+  
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones")); // SHOW component
+  
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+  
+    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   });
 });
