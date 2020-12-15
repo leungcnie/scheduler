@@ -28,20 +28,25 @@ describe("Application", () => {
   });
 
   it("loads data, books an interview and reduces the spots remaining for Monday by 1", async () => {
-    const { container } = render(<Application />);
+    const { container, debug } = render(<Application />);
   
     await waitForElement(() => getByText(container, "Archie Cohen"));
   
     const appointments = getAllByTestId(container, "appointment");
-    const appointment = appointments[0];
+    const appointment = appointments[0]; // Get the first appointment
   
     fireEvent.click(getByAltText(appointment, "Add"));
   
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
       target: { value: "Lydia Miller-Jones" }
     });
-    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer")); // Select an interviewer
   
     fireEvent.click(getByText(appointment, "Save"));
+
+    expect(getByText(appointment, "Saving")).toBeInTheDocument(); // STATUS component
+
+    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones")); // SHOW component
   });
 });
