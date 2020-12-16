@@ -1,6 +1,6 @@
 export function getAppointmentsForDay(state, day) {
   const result = [];
-  const dayObj = state.days.filter(obj => obj.name === day)[0]; // Get specific day object
+  const dayObj = state.days.filter((obj) => obj.name === day)[0]; // Get specific day object
   const appointments = dayObj ? [...dayObj.appointments] : []; // Get appointments array if that day exists
 
   // If there are no appointments or the day doesn't exist, return an empty array
@@ -19,7 +19,7 @@ export function getAppointmentsForDay(state, day) {
 
 export function getInterviewersForDay(state, day) {
   const result = [];
-  const dayObj = state.days.filter(obj => obj.name === day)[0]; // Get specific day object
+  const dayObj = state.days.filter((obj) => obj.name === day)[0]; // Get specific day object
   const interviewers = dayObj ? [...dayObj.interviewers] : []; // Get interviewers array if that day exists
 
   // If there are no interviewers or the day doesn't exist, return an empty array
@@ -43,8 +43,8 @@ export function getInterview(state, interview) {
 
   const result = {
     student: interview.student,
-    interviewer: state.interviewers[interview.interviewer]
-  }
+    interviewer: state.interviewers[interview.interviewer],
+  };
 
   return result;
 }
