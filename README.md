@@ -21,3 +21,7 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Final Product
+!["Appointment Form"](https://github.com/leungcnie/scheduler/blob/master/docs/appointment-form.png?raw=true)
+!["Delete Confirmation"](https://github.com/leungcnie/scheduler/blob/master/docs/delete-confirmation.png?raw=true)
