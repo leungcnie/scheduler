@@ -13,7 +13,7 @@ export default function useApplicationData() {
 
   // Return new days array with updated spots
   const updateSpots = (dayName, days, appointments) => {
-    const index = days.findIndex(d => d.name === dayName); // Get index of current day
+    const index = days.findIndex((d) => d.name === dayName); // Get index of current day
     const apptIDs = days[index].appointments; // Get array of appointment IDs
     let freeSpots = 0;
 
@@ -27,7 +27,7 @@ export default function useApplicationData() {
     days[index].spots = freeSpots;
 
     return days;
-  }
+  };
 
   // Fetch days data from scheduler-api
   useEffect(() => {
