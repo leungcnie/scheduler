@@ -152,8 +152,8 @@ describe("Application", () => {
     fireEvent.click(getByText(appointment, "Save"));
 
     expect(getByText(appointment, "Saving")).toBeInTheDocument(); // STATUS component
-    await waitForElement(() =>
-      getByText(appointment, "Could not save appointment.") // Expect to see Error element
+    await waitForElement(
+      () => getByText(appointment, "Could not save appointment.") // Expect to see Error element
     );
 
     // Click close button and expect to see Form element
@@ -190,8 +190,8 @@ describe("Application", () => {
 
     // 6. Check that the element with the text "Deleting" is displayed.
     expect(getByText(appointment, "Deleting")).toBeInTheDocument();
-    await waitForElement(() =>
-      getByText(appointment, "Could not delete appointment.") // Expect to see Error element
+    await waitForElement(
+      () => getByText(appointment, "Could not delete appointment.") // Expect to see Error element
     );
 
     // 7. Click close button and expect to see same appointment from before
